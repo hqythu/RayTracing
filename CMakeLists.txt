@@ -1,9 +1,21 @@
-cmake_minimum_required(VERSION 2.6)
-
+cmake_minimum_required(VERSION 3.2)
 project(RayTracing)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
-AUX_SOURCE_DIRECTORY(src DIR_SRCS)
+set(SOURCE_FILES
+    src/objects/intersect.cpp
+    src/objects/intersect.h
+    src/objects/object.cpp
+    src/objects/object.h
+    src/objects/sphere.cpp
+    src/objects/sphere.h
+    src/tracer/camera.cpp
+    src/tracer/camera.h
+    src/tracer/ray.cpp
+    src/tracer/ray.h
+    src/util/vector3.cpp
+    src/util/vector3.h
+    src/main.cpp)
 
-add_executable(RayTracing ${DIR_SRCS})
+add_executable(RayTracing ${SOURCE_FILES})

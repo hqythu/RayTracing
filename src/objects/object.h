@@ -7,6 +7,8 @@
 namespace objects
 {
 
+class Object;
+
 class Object
 {
 public:

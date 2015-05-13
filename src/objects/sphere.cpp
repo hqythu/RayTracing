@@ -20,7 +20,7 @@ Sphere::~Sphere()
 Intersect Sphere::intersects(const tracer::Ray& ray)
 {
     Vector3 v = ray.start - this->center;
-    Vector3 a0 = v.module_square() - (this->radius * this->radius);
+    double a0 = v.module_square() - (this->radius * this->radius);
     double DdotV = ray.direction.dot(v);
 
     if (DdotV <= 0) {
@@ -28,11 +28,8 @@ Intersect Sphere::intersects(const tracer::Ray& ray)
         if (discr >= 0) {
             double dist = - DdotV - sqrt(discr);
             Vector3 pos = ray.start + ray.direction * dist;
-            return Intersect(this,
-                             true,
-                             dist,
-                             pos,
-                             (pos - this->center).normalize());
+            Vector3 normal = (pos - this->center).normalize();
+            return Intersect(this, true, dist, pos, normal);
         }
     }
 
