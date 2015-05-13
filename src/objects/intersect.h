@@ -18,6 +18,8 @@ public:
     double distance;
     util::Vector3 position;
     util::Vector3 normal;
+
+    static Intersect noHit;
 };
 
 }
