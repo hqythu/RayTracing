@@ -13,5 +13,9 @@ Sphere::~Sphere()
 {
 }
 
+Intersect Sphere::intersects(const tracer::Ray& ray)
+{
+
+}
 
 }

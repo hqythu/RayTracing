@@ -27,4 +27,5 @@ private:
 };
 
 }
+
 #endif // VECTOR3_H

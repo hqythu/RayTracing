@@ -1,6 +1,9 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include "intersect.h"
+#include "../tracer/ray.h"
+
 namespace objects
 {
 
@@ -10,7 +13,7 @@ public:
     Object();
     virtual ~Object();
 
-    void intersects();
+    Intersect intersects(const tracer::Ray& ray);
 };
 
 }
