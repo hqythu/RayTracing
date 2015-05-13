@@ -10,8 +10,11 @@ public:
     Image(int width, int height);
     ~Image();
 
-private:
+    unsigned char* at(int i, int j);
 
+private:
+    int width, height;
+    unsigned char *data;
 };
 
 }

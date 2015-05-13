@@ -23,4 +23,9 @@ void Tracer::run()
 
 }
 
+Color Tracer::raytrace(Ray ray, int depth)
+{
+    return Color(0, 0, 0);
+}
+
 }

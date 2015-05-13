@@ -2,6 +2,7 @@
 #define CAMERA_H
 
 #include "../util/vector3.h"
+#include "../util/image.h"
 #include "ray.h"
 
 namespace tracer
@@ -20,6 +21,8 @@ private:
     util::Vector3 front, up, right;
     int width, height;
     double ratio;
+
+    util::Image image;
 };
 
 }

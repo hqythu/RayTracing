@@ -22,7 +22,7 @@ public:
     void run();
 
 private:
-    Color raytrace();
+    Color raytrace(Ray ray, int depth);
 
     Camera* camera;
     Scene* scene;
