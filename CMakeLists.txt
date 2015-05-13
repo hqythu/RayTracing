@@ -14,8 +14,13 @@ set(SOURCE_FILES
     src/tracer/camera.h
     src/tracer/ray.cpp
     src/tracer/ray.h
+    src/tracer/scene.cpp
+    src/tracer/scene.h
+    src/tracer/tracer.cpp
+    src/tracer/tracer.h
     src/util/vector3.cpp
     src/util/vector3.h
-    src/main.cpp)
+    src/main.cpp
+    )
 
 add_executable(RayTracing ${SOURCE_FILES})

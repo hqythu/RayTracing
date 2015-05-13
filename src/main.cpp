@@ -4,16 +4,19 @@
 #include "tracer/camera.h"
 #include "objects/sphere.h"
 
+#include <opencv2/core/core.hpp>
+#include <opencv2/highgui/highgui.hpp>
+
 using util::Vector3;
 using namespace objects;
+using namespace cv;
 
 
 int main()
 {
-    tracer::Camera camera(Vector3(0, 0, 0),
-                          Vector3(0, 0, 1),
-                          Vector3(1, 0, 0),
-                          256, 256, 1);
-
+    Mat picture(256, 256, CV_8UC3, Scalar(255, 255, 255));
+    namedWindow("hqy");
+    imshow("hqy", picture);
+    waitKey(0);
     return 0;
 }
