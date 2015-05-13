@@ -77,7 +77,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="image.cpp" />
+    <ClCompile Include="src\util\image.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\objects\intersect.cpp" />
     <ClCompile Include="src\objects\object.cpp" />
@@ -89,7 +89,7 @@
     <ClCompile Include="src\util\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="image.h" />
+    <ClInclude Include="src\util\image.h" />
     <ClInclude Include="src\objects\intersect.h" />
     <ClInclude Include="src\objects\object.h" />
     <ClInclude Include="src\objects\sphere.h" />
