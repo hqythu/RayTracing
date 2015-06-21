@@ -3,6 +3,9 @@
 namespace objects
 {
 
+Intersect Intersect::noHit(nullptr, false, 0, Vector3(0, 0, 0), Vector3(0, 0, 0));
+
+
 Object::Object()
 {
 

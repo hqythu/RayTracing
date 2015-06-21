@@ -77,10 +77,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\objects\material.cpp" />
+    <ClCompile Include="src\util\color.cpp" />
     <ClCompile Include="src\util\image.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\objects\intersect.cpp" />
     <ClCompile Include="src\objects\object.cpp" />
     <ClCompile Include="src\objects\sphere.cpp" />
     <ClCompile Include="src\tracer\camera.cpp" />
@@ -90,9 +89,8 @@
     <ClCompile Include="src\util\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\objects\material.h" />
+    <ClInclude Include="src\util\color.h" />
     <ClInclude Include="src\util\image.h" />
-    <ClInclude Include="src\objects\intersect.h" />
     <ClInclude Include="src\objects\object.h" />
     <ClInclude Include="src\objects\sphere.h" />
     <ClInclude Include="src\tracer\camera.h" />

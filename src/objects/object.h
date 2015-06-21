@@ -3,20 +3,23 @@
 
 #include "../tracer/ray.h"
 #include "../util/color.h"
+#include "../util/vector3.h"
+#include "../util/image.h"
 
 
 namespace objects
 {
 
 class Object;
-typedef util::Color Color;
+using util::Color;
+using util::Vector3;
 
 
 class Intersect
 {
 public:
     Intersect(Object* object, bool intersects, double distance,
-        const util::Vector3& position, const util::Vector3& normal)
+        const Vector3& position, const Vector3& normal)
         :
         object_ptr(object),
         intersects(intersects),
@@ -41,6 +44,7 @@ class Material
 public:
     Color color;
     double reflect, refract, diffract;
+    util::Image* texture;
 };
 
 

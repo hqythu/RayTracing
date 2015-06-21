@@ -2,14 +2,13 @@
 #define TRACER_H
 
 #include "../objects/object.h"
+#include "../util/color.h"
 #include "camera.h"
 #include "ray.h"
 #include "scene.h"
 
 namespace tracer
 {
-
-typedef util::Vector3 Color;
 
 class Tracer
 {
@@ -18,11 +17,12 @@ public:
     ~Tracer();
 
     void set_camera(Camera* camera);
+    void set_scene(Scene* scene);
 
     void run();
 
 private:
-    Color raytrace(Ray ray, int depth);
+    util::Color raytrace(Ray ray, int depth);
 
     Camera* camera;
     Scene* scene;
