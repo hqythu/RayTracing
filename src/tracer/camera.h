@@ -16,6 +16,9 @@ public:
 
     Ray emit(int x, int y);
 
+    int get_width() { return width; }
+    int get_height() { return height; }
+
 private:
     util::Vector3 position;
     util::Vector3 front, up, right;
