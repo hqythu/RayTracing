@@ -25,6 +25,8 @@ public:
 private:
     util::Color raytrace(Ray ray, int depth);
 
+    Ray get_reflection_light(Ray ray, objects::Intersect inter);
+
     Camera* camera;
     Scene* scene;
 };

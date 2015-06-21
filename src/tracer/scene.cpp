@@ -36,7 +36,7 @@ objects::Intersect Scene::find_nearest_object(Ray ray)
     Intersect inter = Intersect::noHit;
     for (const auto& object : objects) {
         Intersect tmp = object->intersects(ray);
-        if (tmp.distance < min) {
+        if (tmp.intersects && tmp.distance < min) {
             inter = tmp;
             min = tmp.distance;
         }
