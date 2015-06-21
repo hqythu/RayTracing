@@ -36,7 +36,10 @@ Vector3 Vector3::operator - (const Vector3& op) const
 
 Vector3 Vector3::operator * (const Vector3& op) const
 {
-    return Vector3();
+    return Vector3(
+        this->y * op.z - op.y * this->z,
+        this->z * op.x - op.z * this->x,
+        this->x * op.y - op.x * this->y);
 }
 
 
