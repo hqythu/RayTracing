@@ -43,7 +43,7 @@ class Material
 {
 public:
     Color color;
-    double reflect, refract, diffract;
+    double reflect, refract, diffract, spec, specn;
     util::Image* texture;
 };
 

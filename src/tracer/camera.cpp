@@ -3,7 +3,7 @@
 namespace tracer
 {
 
-Camera::Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, int width, int height, double ratio)
+Camera::Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, int width, int height, int focus)
     :
     position(position),
     front(front.normalize()),
@@ -11,7 +11,7 @@ Camera::Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, in
     right((front * up).normalize()),
     width(width),
     height(height),
-    ratio(ratio),
+    focus(focus),
     image(nullptr)
 {
 }
@@ -22,10 +22,10 @@ Camera::~Camera()
 }
 
 
-Ray Camera::emit(int x, int y)
+Ray Camera::emit(double x, double y)
 {
     util::Vector3 direction;
-    direction = front + (right * (x - width / 2) + up * (y - height / 2));
+    direction = front + (right * (x - width / 2) / focus) + up * ((y - height / 2) / focus);
     return Ray(position, direction.normalize());
 }
 

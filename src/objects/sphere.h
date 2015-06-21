@@ -11,7 +11,7 @@ namespace objects
 class Sphere : public Object
 {
 public:
-    Sphere(util::Vector3& center, double radius);
+    Sphere(const util::Vector3& center, double radius);
     ~Sphere();
 
     Intersect intersects(const tracer::Ray& ray);

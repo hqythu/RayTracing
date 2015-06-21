@@ -1,5 +1,9 @@
 #include "tracer.h"
 
+#include <iostream>
+
+using namespace std;
+
 namespace tracer
 {
 
@@ -36,8 +40,10 @@ void Tracer::run()
     int height = camera->get_height();
 
     for (int i = 0; i < width; i++) {
+        cout << i + 1 << endl;
         for (int j = 0; j < height; j++) {
             Color color = raytrace(camera->emit(i, j), 0);
+            int x = int(255 * color.get_r());
             camera->set_color(i, j, color);
         }
     }
@@ -46,7 +52,23 @@ void Tracer::run()
 
 Color Tracer::raytrace(Ray ray, int depth)
 {
-    return Color(0, 0, 1);
+    using util::Vector3;
+    objects::Intersect intersect = scene->find_nearest_object(ray);
+    if (!intersect.intersects) {
+        return Color(0, 0, 0);
+    }
+    objects::Object* object = intersect.object_ptr;
+    Color ret;
+    ret += scene->get_backgroud() * object->material->diffract;
+    for (const auto& light : scene->get_lights()) {
+        Vector3 L = light->get_light_vec(intersect.position).normalize();
+        double dot = L.dot(intersect.normal);
+        if (dot > 0) {
+            ret += light->get_color() * dot * object->material->diffract;
+        }
+    }
+    ret.confine();
+    return ret;
 }
 
 }

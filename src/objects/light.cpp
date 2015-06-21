@@ -3,13 +3,10 @@
 namespace objects
 {
 
-Light::Light()
+Light::Light(util::Color color)
+    : color(color)
 {
-}
 
-
-Light::~Light()
-{
 }
 
 }

@@ -3,6 +3,7 @@
 
 #include "../objects/object.h"
 #include "../util/color.h"
+#include "../util/vector3.h"
 #include "camera.h"
 #include "ray.h"
 #include "scene.h"

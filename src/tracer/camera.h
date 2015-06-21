@@ -12,10 +12,10 @@ namespace tracer
 class Camera
 {
 public:
-    Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, int width, int height, double ratio);
+    Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, int width, int height, int focus);
     ~Camera();
 
-    Ray emit(int x, int y);
+    Ray emit(double x, double y);
 
     int get_width() { return width; }
     int get_height() { return height; }
@@ -27,7 +27,7 @@ private:
     util::Vector3 position;
     util::Vector3 front, up, right;
     int width, height;
-    double ratio;
+    int focus;
 
     util::Image* image;
 };

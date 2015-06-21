@@ -8,7 +8,7 @@ namespace util
 class Color
 {
 public:
-    Color(double r, double g, double b);
+    Color(double r = 0, double g = 0, double b = 0);
     ~Color();
 
     double get_r() { return r; }
@@ -18,6 +18,10 @@ public:
     Color operator + (const Color& op) const;
     Color operator - (const Color& op) const;
     Color operator * (const Color& op) const;
+    Color operator * (double k) const;
+    Color& operator += (const Color& op);
+
+    void confine();
 
 private:
     double r, g, b;

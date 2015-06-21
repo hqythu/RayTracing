@@ -7,7 +7,7 @@ namespace objects
 
 using util::Vector3;
 
-Sphere::Sphere(util::Vector3& center, double radius) :
+Sphere::Sphere(const util::Vector3& center, double radius) :
     center(center), radius(radius)
 {
 }
