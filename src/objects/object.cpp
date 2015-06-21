@@ -11,7 +11,7 @@ Object::Object()
 
 Object::~Object()
 {
-
+    delete material;
 }
 
 Intersect Object::intersects(const tracer::Ray& ray)
