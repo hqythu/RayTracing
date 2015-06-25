@@ -78,6 +78,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\objects\light.cpp" />
+    <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\objects\pointlight.cpp" />
     <ClCompile Include="src\util\color.cpp" />
     <ClCompile Include="src\util\image.cpp" />
@@ -93,6 +94,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\light.h" />
+    <ClInclude Include="src\objects\plane.h" />
     <ClInclude Include="src\objects\pointlight.h" />
     <ClInclude Include="src\util\color.h" />
     <ClInclude Include="src\util\image.h" />

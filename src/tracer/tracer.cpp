@@ -6,6 +6,7 @@
 
 #include "../objects/object.h"
 #include "../objects/sphere.h"
+#include "../objects/plane.h"
 #include "../objects/light.h"
 #include "../objects/pointlight.h"
 #include "../util/json/json.h"
@@ -20,6 +21,7 @@ using util::Vector3;
 using objects::Intersect;
 using objects::Object;
 using objects::Sphere;
+using objects::Plane;
 using objects::Light;
 using objects::PointLight;
 
@@ -76,7 +78,6 @@ Scene* Tracer::create_scene(Json::Value value)
         backgroundcolor[2].asDouble()));
     int object_size = value["objects"].size();
     for (int i = 0; i < object_size; i++) {
-        cout << value["objects"][i] << endl;
         scene->add_object(create_object(value["objects"][i]));
     }
     int light_size = value["lights"].size();
@@ -94,6 +95,12 @@ objects::Object* Tracer::create_object(Json::Value value)
         Json::Value center = value["center"];
         object = new Sphere(Vector3(center[0].asDouble(),
             center[1].asDouble(), center[2].asDouble()), value["radius"].asDouble());
+    }
+    else if (value["type"].asString() == "Plane") {
+        Json::Value normal = value["normal"];
+        Json::Value point = value["point"];
+        object = new Plane(Vector3(normal[0].asDouble(), normal[1].asDouble(), normal[2].asDouble()),
+            Vector3(point[0].asDouble(), point[1].asDouble(), point[2].asDouble()));
     }
     else {
 
@@ -154,7 +161,7 @@ void Tracer::run()
     int height = camera->get_height();
 
     for (int i = 0; i < width; i++) {
-        cout << i + 1 << endl;
+        //cout << i + 1 << endl;
         for (int j = 0; j < height; j++) {
             Color color = raytrace(camera->emit(i, j), 0);
             int x = int(255 * color.get_r());
@@ -184,15 +191,27 @@ Color Tracer::raytrace(Ray ray, int depth)
     Color ret;
     ret += scene->get_backgroud() * object->material->diffract;
     for (const auto& light : scene->get_lights()) {
-        Vector3 L = light->get_light_vec(intersect.position).normalize();
+        Vector3 L = light->get_light_vec(intersect.position);
+        double dist = L.module();
+        L = L.normalize();
+        if ((scene->find_nearest_object(Ray(intersect.position, L))).distance < dist) {
+            cout << (scene->find_nearest_object(Ray(intersect.position, L))).distance << " " << dist << endl;
+            continue;
+        }
         double dot = L.dot(intersect.normal);
         if (dot > 0) {
-            ret += light->get_color() * object->material->color * dot * object->material->diffract;
-            ret += light->get_color() * pow(dot, object->material->specn) * object->material->spec;
+            if (object->material->diffract > 0) {
+                ret += light->get_color() * object->material->color * dot * object->material->diffract;
+            }
+            if (object->material->spec > 0) {
+                ret += light->get_color() * pow(dot, object->material->specn) * object->material->spec;
+            }
         }
     }
     Ray reflection = get_reflection_light(ray, intersect);
-    ret += raytrace(reflection, depth + 1) * object->material->reflect;
+    if (object->material->reflect > 0) {
+        ret += raytrace(reflection, depth + 1) * object->material->reflect;
+    }
     ret.confine();
     return ret;
 }
