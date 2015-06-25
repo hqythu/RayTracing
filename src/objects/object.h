@@ -57,6 +57,7 @@ public:
     virtual Intersect intersects(const tracer::Ray& ray) = 0;
 
     Material* material;
+    const static double EPSILON;
 };
 
 }

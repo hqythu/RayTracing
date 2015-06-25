@@ -23,9 +23,9 @@ Intersect Sphere::intersects(const tracer::Ray& ray)
     double a0 = v.module_square() - (this->radius * this->radius);
     double DdotV = ray.direction.dot(v);
 
-    if (DdotV >= 0) {
+    if (DdotV > 0) {
         double discr = DdotV * DdotV - a0;
-        if (discr >= 0) {
+        if (discr >  EPSILON) {
             double dist = DdotV - sqrt(discr);
             Vector3 pos = ray.start + ray.direction * dist;
             Vector3 normal = (pos - this->center).normalize();

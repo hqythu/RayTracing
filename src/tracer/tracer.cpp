@@ -195,7 +195,6 @@ Color Tracer::raytrace(Ray ray, int depth)
         double dist = L.module();
         L = L.normalize();
         if ((scene->find_nearest_object(Ray(intersect.position, L))).distance < dist) {
-            cout << (scene->find_nearest_object(Ray(intersect.position, L))).distance << " " << dist << endl;
             continue;
         }
         double dot = L.dot(intersect.normal);
@@ -208,8 +207,8 @@ Color Tracer::raytrace(Ray ray, int depth)
             }
         }
     }
-    Ray reflection = get_reflection_light(ray, intersect);
     if (object->material->reflect > 0) {
+        Ray reflection = get_reflection_light(ray, intersect);
         ret += raytrace(reflection, depth + 1) * object->material->reflect;
     }
     ret.confine();

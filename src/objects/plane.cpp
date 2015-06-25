@@ -16,11 +16,12 @@ Plane::~Plane()
 {
 }
 
+
 Intersect Plane::intersects(const tracer::Ray& ray)
 {
     double D = -point.dot(normal);
     double t = -(D + ray.start.dot(normal)) / (ray.direction.dot(normal));
-    if (t > 0) {
+    if (t > EPSILON) {
         Vector3 pos = ray.start + ray.direction * t;
         return Intersect(this, true, t, pos, normal);
     }
