@@ -71,6 +71,12 @@ Ray Tracer::get_reflection_light(Ray ray, Intersect inter)
 }
 
 
+tracer::Ray Tracer::get_refraction_light(Ray ray, objects::Intersect inter, double n)
+{
+    return Ray(Vector3(0, 0, 0), Vector3(0, 0, 0));
+}
+
+
 Scene* Tracer::create_scene(Json::Value value)
 {
     Json::Value backgroundcolor = value["backgroundcolor"];
@@ -109,6 +115,7 @@ objects::Object* Tracer::create_object(Json::Value value)
     material->diffract = value["diffract"].asDouble();
     material->reflect = value["reflect"].asDouble();
     material->refract = value["refract"].asDouble();
+    material->rindex = value["rindex"].asDouble();
     material->spec = value["spec"].asDouble();
     material->specn = value["specn"].asDouble();
     Json::Value color = value["color"];
@@ -163,7 +170,7 @@ void Tracer::run()
     for (int i = 0; i < width; i++) {
         //cout << i + 1 << endl;
         for (int j = 0; j < height; j++) {
-            Color color = raytrace(camera->emit(i, j), 0);
+            Color color = raytrace(camera->emit(i, j), 0, false);
             int x = int(255 * color.get_r());
             camera->set_color(i, j, color);
         }
@@ -177,7 +184,7 @@ void Tracer::show()
 }
 
 
-Color Tracer::raytrace(Ray ray, int depth)
+Color Tracer::raytrace(Ray ray, int depth, bool refreacted)
 {
     if (depth > 10) {
         return Color(0, 0, 0);
@@ -209,7 +216,24 @@ Color Tracer::raytrace(Ray ray, int depth)
     }
     if (object->material->reflect > 0) {
         Ray reflection = get_reflection_light(ray, intersect);
-        ret += raytrace(reflection, depth + 1) * object->material->reflect;
+        ret += raytrace(reflection, depth + 1, refreacted) * object->material->reflect;
+    }
+    if (object->material->refract > 0) {
+        double n = object->material->rindex;
+        if (refreacted) {
+            n = 1 / n;
+        }
+        Ray refraction = get_refraction_light(ray, intersect, object->material->rindex);
+        Color rcol = raytrace(refraction, depth + 1, !refreacted) * object->material->reflect;
+        if (refreacted) {
+            Color absorb = object->material->absorb * intersect.distance;
+            rcol = Color(exp(-absorb.get_r()), exp(-absorb.get_g()), exp(-absorb.get_b()))
+                * object->material->refract;
+        }
+        else {
+            rcol = rcol * object->material->refract;
+        }
+        ret += rcol;
     }
     ret.confine();
     return ret;

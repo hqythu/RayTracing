@@ -29,9 +29,10 @@ public:
     void show();
 
 private:
-    util::Color raytrace(Ray ray, int depth);
+    util::Color raytrace(Ray ray, int depth, bool refreacted);
 
     Ray get_reflection_light(Ray ray, objects::Intersect inter);
+    Ray get_refraction_light(Ray ray, objects::Intersect inter, double n);
 
     Scene* create_scene(Json::Value);
     objects::Object* create_object(Json::Value);
