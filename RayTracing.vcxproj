@@ -88,6 +88,7 @@
     <ClCompile Include="src\tracer\ray.cpp" />
     <ClCompile Include="src\tracer\scene.cpp" />
     <ClCompile Include="src\tracer\tracer.cpp" />
+    <ClCompile Include="src\util\jsoncpp.cpp" />
     <ClCompile Include="src\util\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +102,8 @@
     <ClInclude Include="src\tracer\ray.h" />
     <ClInclude Include="src\tracer\scene.h" />
     <ClInclude Include="src\tracer\tracer.h" />
+    <ClInclude Include="src\util\json\json-forwards.h" />
+    <ClInclude Include="src\util\json\json.h" />
     <ClInclude Include="src\util\vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

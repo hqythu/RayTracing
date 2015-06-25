@@ -41,4 +41,11 @@ void Camera::set_image(util::Image* image)
     this->image = image;
 }
 
+
+void Camera::show()
+{
+    image->show();
+}
+
+
 }

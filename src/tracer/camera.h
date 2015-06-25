@@ -23,6 +23,8 @@ public:
     void set_color(int x, int y, util::Color color);
     void set_image(util::Image* image);
 
+    void show();
+
 private:
     util::Vector3 position;
     util::Vector3 front, up, right;

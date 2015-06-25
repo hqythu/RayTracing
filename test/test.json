@@ -1,0 +1,31 @@
+{
+    "camera": {
+        "position": [0, 0, 0],
+        "up": [0, 0, 1],
+        "front": [0, 1, 0],
+        "width": 800,
+        "height": 600,
+        "focus": 1000
+    },
+    "backgroundcolor": [0.2, 0.2, 0.2],
+    "objects": [
+        {
+            "type": "Sphere",
+            "center": [0, 1000, 0],
+            "radius": 100,
+            "diffract": 0.4,
+            "reflect": 0.8,
+            "refract": 0.8,
+            "spec": 0.8,
+            "specn": 50,
+            "color": [0, 0, 1]
+        }
+    ],
+    "lights": [
+        {
+            "type": "point",
+            "position": [0, 0, 1000],
+            "color": [1, 1, 1]
+        }
+    ]
+}
