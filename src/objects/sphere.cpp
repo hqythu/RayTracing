@@ -22,13 +22,23 @@ Intersect Sphere::intersects(const tracer::Ray& ray)
     Vector3 v = this->center - ray.start;
     double DdotV = ray.direction.dot(v);
 
-    double inside = v.module_square() < (radius * radius);
+    bool inside;
+
+    if (v.module_square() > (radius * radius) + EPSILON) {
+        inside = false;
+    }
+    else if (v.module_square() < (radius * radius) - EPSILON) {
+        inside = true;
+    }
+    else {
+        return Intersect::noHit;
+    }
 
     if (inside || DdotV > EPSILON) {
         double discr = v.module_square() - DdotV * DdotV;
         double a0 = radius * radius - discr;
         double dist;
-        if (sqrt(discr) <  radius - EPSILON) {
+        if (a0 > EPSILON) {
             if (inside) {
                 dist = DdotV + sqrt(a0);
             }

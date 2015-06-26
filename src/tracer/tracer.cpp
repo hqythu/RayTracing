@@ -73,7 +73,13 @@ Ray Tracer::get_reflection_light(Ray ray, Intersect inter)
 
 tracer::Ray Tracer::get_refraction_light(Ray ray, objects::Intersect inter, double n)
 {
-    return Ray(Vector3(0, 0, 0), Vector3(0, 0, 0));
+    double cos_i = -ray.direction.dot(inter.normal);
+    double sin_i = sqrt(1 - cos_i * cos_i);
+    double sin_r = sin_i / n;
+    double cos_r = sqrt(1 - sin_i * sin_i);
+    Vector3 R = inter.normal * (cos_i / n - cos_r) + ray.direction / n;
+    return Ray(inter.position, R);
+    //return Ray(Vector3(0, 0, 0), Vector3(0, 0, 0));
 }
 
 
