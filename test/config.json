@@ -36,7 +36,7 @@
             "center": [0, 1000, 0],
             "radius": 50,
             "diffract": 0.4,
-            "reflect": 0.2,
+            "reflect": 0,
             "refract": 0.8,
             "rindex": 1.3,
             "spec": 0.8,

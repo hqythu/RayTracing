@@ -27,14 +27,11 @@ Intersect Sphere::intersects(const tracer::Ray& ray)
     if (v.module_square() > (radius * radius) + EPSILON) {
         inside = false;
     }
-    else if (v.module_square() < (radius * radius) - EPSILON) {
+    else {
         inside = true;
     }
-    else {
-        return Intersect::noHit;
-    }
 
-    if (inside || DdotV > EPSILON) {
+    if (DdotV > EPSILON) {
         double discr = v.module_square() - DdotV * DdotV;
         double a0 = radius * radius - discr;
         double dist;

@@ -229,15 +229,11 @@ Color Tracer::raytrace(Ray ray, int depth, bool refreacted)
         if (refreacted) {
             n = 1 / n;
         }
-        Ray refraction = get_refraction_light(ray, intersect, object->material->rindex);
-        Color rcol = raytrace(refraction, depth + 1, !refreacted) * object->material->reflect;
+        Ray refraction = get_refraction_light(ray, intersect, n);
+        Color rcol = raytrace(refraction, depth + 1, !refreacted) * object->material->refract;
         if (refreacted) {
             Color absorb = object->material->absorb * intersect.distance;
-            rcol = Color(exp(-absorb.get_r()), exp(-absorb.get_g()), exp(-absorb.get_b()))
-                * object->material->refract;
-        }
-        else {
-            rcol = rcol * object->material->refract;
+            rcol = rcol * Color(exp(-absorb.get_r()), exp(-absorb.get_g()), exp(-absorb.get_b()));
         }
         ret += rcol;
     }
