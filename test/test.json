@@ -12,20 +12,92 @@
         {
             "type": "Sphere",
             "center": [0, 1000, 0],
-            "radius": 100,
-            "diffract": 0.4,
-            "reflect": 0.8,
-            "refract": 0.8,
+            "radius": 50,
+            "diffract": 0,
+            "reflect": 0.1,
+            "refract": 0.9,
+            "rindex": 1.1,
             "spec": 0.8,
             "specn": 50,
+            "color": [1, 1, 1]
+        },
+        {
+            "type": "Plane",
+            "normal": [0, 0, 1],
+            "point": [0, 0, -500],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
+            "color": [1, 1, 0]
+        },
+        {
+            "type": "Plane",
+            "normal": [1, 0, 0],
+            "point": [-1000, 0, 0],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
             "color": [0, 0, 1]
+        },
+        {
+            "type": "Plane",
+            "normal": [-1, 0, 0],
+            "point": [1000, 0, 0],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
+            "color": [0, 1, 0]
+        },
+        {
+            "type": "Plane",
+            "normal": [0, 1, 0],
+            "point": [0, -100, 0],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
+            "color": [1, 0, 1]
+        },
+        {
+            "type": "Plane",
+            "normal": [0, -1, 0],
+            "point": [0, 5000, 0],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
+            "color": [1, 1, 1]
+        },
+        {
+            "type": "Plane",
+            "normal": [0, 0, -1],
+            "point": [0, 0, 1500],
+            "diffract": 1,
+            "reflect": 0,
+            "refract": 0,
+            "spec": 0,
+            "specn": 50,
+            "color": [0, 1, 1]
         }
     ],
     "lights": [
         {
             "type": "point",
-            "position": [0, 0, 1000],
+            "position": [0, 1000, 1000],
             "color": [1, 1, 1]
+        },
+        {
+            "type": "point",
+            "position": [500, 500, 1000],
+            "color": [0, 0, 0]
         }
     ]
 }

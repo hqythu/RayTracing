@@ -17,7 +17,7 @@ public:
     Vector3 operator * (double k) const;
     Vector3 operator / (double k) const;
 
-    double dot(Vector3& op) const;
+    double dot(const Vector3& op) const;
     Vector3 normalize() const;
     double module() const;
     double module_square() const;

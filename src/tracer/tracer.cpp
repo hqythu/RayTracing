@@ -62,7 +62,7 @@ void Tracer::read_config_from_file(std::string filename)
 }
 
 
-Ray Tracer::get_reflection_light(Ray ray, Intersect inter)
+Ray Tracer::get_reflection_light(const Ray& ray, const Intersect& inter)
 {
     const Vector3& norm = inter.normal;
     Vector3 L = - ray.direction;
@@ -71,7 +71,7 @@ Ray Tracer::get_reflection_light(Ray ray, Intersect inter)
 }
 
 
-tracer::Ray Tracer::get_refraction_light(Ray ray, objects::Intersect inter, double n)
+Ray Tracer::get_refraction_light(const Ray& ray, const Intersect& inter, double n)
 {
     double cos_i = -ray.direction.dot(inter.normal);
     double sin_i = sqrt(1 - cos_i * cos_i);
@@ -79,7 +79,6 @@ tracer::Ray Tracer::get_refraction_light(Ray ray, objects::Intersect inter, doub
     double cos_r = sqrt(1 - sin_i * sin_i);
     Vector3 R = inter.normal * (cos_i / n - cos_r) + ray.direction / n;
     return Ray(inter.position, R);
-    //return Ray(Vector3(0, 0, 0), Vector3(0, 0, 0));
 }
 
 
@@ -190,7 +189,7 @@ void Tracer::show()
 }
 
 
-Color Tracer::raytrace(Ray ray, int depth, bool refreacted)
+Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
 {
     if (depth > 10) {
         return Color(0, 0, 0);

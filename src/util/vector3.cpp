@@ -55,7 +55,7 @@ Vector3 Vector3::operator / (double k) const
 }
 
 
-double Vector3::dot(Vector3& op) const
+double Vector3::dot(const Vector3& op) const
 {
     return this->x * op.x + this->y * op.y + this->z * op.z;
 }
