@@ -67,7 +67,7 @@ Ray Tracer::get_reflection_light(const Ray& ray, const Intersect& inter)
     const Vector3& norm = inter.normal;
     Vector3 L = - ray.direction;
     Vector3 R = norm * (L.dot(norm * 2)) - L;
-    return Ray(inter.position, R);
+    return Ray(inter.position, R.normalize());
 }
 
 
@@ -78,7 +78,7 @@ Ray Tracer::get_refraction_light(const Ray& ray, const Intersect& inter, double 
     double sin_r = sin_i / n;
     double cos_r = sqrt(1 - sin_i * sin_i);
     Vector3 R = inter.normal * (cos_i / n - cos_r) + ray.direction / n;
-    return Ray(inter.position, R);
+    return Ray(inter.position, R.normalize());
 }
 
 
