@@ -6,8 +6,8 @@ namespace objects
 using util::Vector3;
 using objects::Intersect;
 
-Plane::Plane(Vector3 normal, Vector3 point)
-    : normal(normal), point(point)
+Plane::Plane(Vector3 normal, Vector3 point, Vector3 dx)
+    : normal(normal.normalize()), point(point), dx(dx)
 {
 }
 
@@ -26,6 +26,20 @@ Intersect Plane::intersects(const tracer::Ray& ray)
         return Intersect(this, true, t, pos, normal);
     }
     return Intersect::noHit;
+}
+
+
+Color Plane::get_color(Intersect intersect)
+{
+    if (material->texture) {
+        Vector3 dy = dx * intersect.normal;
+        double u = dx.dot(intersect.position) / dx.module_square();
+        double v = dy.dot(intersect.position) / dy.module_square();
+        return material->texture->get_relative_color(u, v);
+    } 
+    else {
+        return material->color;
+    }
 }
 
 }

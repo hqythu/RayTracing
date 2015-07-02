@@ -15,6 +15,7 @@ public:
     ~Sphere();
 
     Intersect intersects(const tracer::Ray& ray);
+    Color get_color(Intersect intersect);
 
 private:
     util::Vector3 center;

@@ -18,6 +18,7 @@ namespace tracer
 
 using util::Color;
 using util::Vector3;
+using util::Image;
 using objects::Intersect;
 using objects::Object;
 using objects::Sphere;
@@ -110,8 +111,10 @@ objects::Object* Tracer::create_object(Json::Value value)
     else if (value["type"].asString() == "Plane") {
         Json::Value normal = value["normal"];
         Json::Value point = value["point"];
+        Json::Value dx = value["dx"];
         object = new Plane(Vector3(normal[0].asDouble(), normal[1].asDouble(), normal[2].asDouble()),
-            Vector3(point[0].asDouble(), point[1].asDouble(), point[2].asDouble()));
+            Vector3(point[0].asDouble(), point[1].asDouble(), point[2].asDouble()),
+            Vector3(dx[0].asDouble(), dx[1].asDouble(), dx[2].asDouble()));
     }
     else {
 
@@ -125,6 +128,18 @@ objects::Object* Tracer::create_object(Json::Value value)
     material->specn = value["specn"].asDouble();
     Json::Value color = value["color"];
     material->color = Color(color[0].asDouble(), color[1].asDouble(), color[2].asDouble());
+    Json::Value absorb = value["absorb"];
+    material->absorb = Color(absorb[0].asDouble(), absorb[1].asDouble(), absorb[2].asDouble());
+
+    if (value["texture"].isNull()) {
+        material->texture = nullptr;
+    }
+    else {
+        Image *img = new Image;
+        img->read(value["texture"].asString());
+        material->texture = img;
+    }
+
     if (object) {
         object->material = material;
     }
@@ -212,7 +227,7 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
         double dot = L.dot(intersect.normal);
         if (dot > 0) {
             if (object->material->diffract > 0) {
-                ret += light->get_color() * object->material->color * dot * object->material->diffract;
+                ret += light->get_color() * object->get_color(intersect) * dot * object->material->diffract;
             }
             if (object->material->spec > 0) {
                 ret += light->get_color() * pow(dot, object->material->specn) * object->material->spec;
@@ -221,7 +236,8 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     }
     if (object->material->reflect > 0) {
         Ray reflection = get_reflection_light(ray, intersect);
-        ret += raytrace(reflection, depth + 1, refreacted) * object->material->reflect;
+        ret += raytrace(reflection, depth + 1, refreacted) * object->get_color(intersect) * 
+            object->material->reflect;
     }
     if (object->material->refract > 0) {
         double n = object->material->rindex;
@@ -229,7 +245,8 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
             n = 1 / n;
         }
         Ray refraction = get_refraction_light(ray, intersect, n);
-        Color rcol = raytrace(refraction, depth + 1, !refreacted) * object->material->refract;
+        Color rcol = raytrace(refraction, depth + 1, !refreacted) * object->get_color(intersect) 
+            * object->material->refract;
         if (refreacted) {
             Color absorb = object->material->absorb * intersect.distance;
             rcol = rcol * Color(exp(-absorb.get_r()), exp(-absorb.get_g()), exp(-absorb.get_b()));

@@ -29,27 +29,29 @@
             "refract": 0,
             "spec": 0.8,
             "specn": 50,
-            "color": [1, 0, 0]
+            "color": [1, 0, 0],
+            "texture": "marble.bmp"
         },
         {
             "type": "Sphere",
-            "center": [400, 2500, -250],
+            "center": [400, 4500, -250],
             "radius": 200,
             "diffract": 0,
             "reflect": 0.8,
             "refract": 0,
             "spec": 0.8,
             "specn": 50,
-            "color": [1, 1, 1]
+            "color": [0, 1, 1]
         },
         {
             "type": "Sphere",
-            "center": [-100, 1000, -100],
+            "center": [400, 2000, -300],
+            "absorb": [0.0001, 0.0001, 0.0001],
             "radius": 200,
             "diffract": 0.0,
             "reflect": 0,
             "refract": 1,
-            "rindex": 1.6,
+            "rindex": 1.2,
             "spec": 0,
             "specn": 50,
             "color": [1, 1, 1]
@@ -58,12 +60,14 @@
             "type": "Plane",
             "normal": [0, 0, 1],
             "point": [0, 0, -500],
+            "dx": [1000, 0, 0],
             "diffract": 1,
             "reflect": 0,
             "refract": 0,
             "spec": 0,
             "specn": 50,
-            "color": [1, 0, 0]
+            "color": [1, 0, 0],
+            "texture": "floor.bmp"
         },
         {
             "type": "Plane",
