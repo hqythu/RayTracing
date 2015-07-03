@@ -13,10 +13,10 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
 //  Constructors and Deconstructors
     Vec3f::Vec3f(void)
     {
-        memset(_p,0,sizeof(float)*_len);
+        memset(_p,0,sizeof(double)*_len);
     }
     
-    Vec3f::Vec3f(float x, float y, float z)
+    Vec3f::Vec3f(double x, double y, double z)
     {
         this->x = x;
         this->y = y;
@@ -25,7 +25,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
 
     Vec3f::Vec3f(const Vec3f &v)
     {
-        memcpy(_p,v._p,sizeof(float)*_len);
+        memcpy(_p,v._p,sizeof(double)*_len);
     }
 
     Vec3f::~Vec3f(void)
@@ -38,7 +38,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
 
     Vec3f& Vec3f::operator =( const Vec3f& v)
     {
-        memcpy(_p,v._p,sizeof(float)*_len);        
+        memcpy(_p,v._p,sizeof(double)*_len);        
         return (*this);
     }
 
@@ -47,7 +47,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
         for(int i=0;i<_len;i++)
             _p[i] += v._p[i];
     }
-    void Vec3f::operator +=(float f)
+    void Vec3f::operator +=(double f)
     {
         for(int i=0;i<_len;i++)
             _p[i] += f;
@@ -58,7 +58,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
         for(int i=0;i<_len;i++)
             _p[i] -= v._p[i];
     }
-    void Vec3f::operator -=(float f)
+    void Vec3f::operator -=(double f)
     {
         for(int i=0;i<_len;i++)
             _p[i] -= f;
@@ -69,7 +69,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
         for(int i=0;i<_len;i++)
             _p[i] *= v._p[i];
     }
-    void Vec3f::operator *=(float f)
+    void Vec3f::operator *=(double f)
     {
         for(int i=0;i<_len;i++)
             _p[i] *= f;
@@ -80,7 +80,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
         for(int i=0;i<_len;i++)
             _p[i] /= v._p[i];
     }
-    void Vec3f::operator /=(float f)
+    void Vec3f::operator /=(double f)
     {
         for(int i=0;i<_len;i++)
             _p[i] /= f;
@@ -93,7 +93,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
             res[i] = (*this)[i] + v[i];
         return res;
     }
-    Vec3f Vec3f::operator +(float f) const
+    Vec3f Vec3f::operator +(double f) const
     {
         Vec3f res;
         for(int i=0;i<_len;i++)
@@ -108,7 +108,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
             res[i] = (*this)[i] - v[i];
         return res;
     }
-    Vec3f Vec3f::operator -(float f) const
+    Vec3f Vec3f::operator -(double f) const
     {
         Vec3f res;
         for(int i=0;i<_len;i++)
@@ -123,7 +123,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
             res[i] = (*this)[i] * v[i];
         return res;
     }
-    Vec3f Vec3f::operator *(float f) const
+    Vec3f Vec3f::operator *(double f) const
     {
         Vec3f res;
         for(int i=0;i<_len;i++)
@@ -138,7 +138,7 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
             res[i] = (*this)[i] / v[i];
         return res;
     }
-    Vec3f Vec3f::operator /(float f) const
+    Vec3f Vec3f::operator /(double f) const
     {
         Vec3f res;
         for(int i=0;i<_len;i++)
@@ -158,12 +158,12 @@ std::ostream &operator <<(std::ostream &os, Vec3f const &v) {
 // Other Methods
     void Vec3f::Normalize()
     {
-        float fSqr = L2Norm_Sqr();
+        double fSqr = L2Norm_Sqr();
         if(fSqr>1e-6)
             (*this) *= 1.0f/sqrt(fSqr);
     }
 
-    float Vec3f::L2Norm_Sqr()
+    double Vec3f::L2Norm_Sqr()
     {
         return _p[0]*_p[0] + _p[1]*_p[1] + _p[2]*_p[2];
     }

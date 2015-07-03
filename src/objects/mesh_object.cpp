@@ -185,23 +185,23 @@ MeshObject::MeshObject(string model, double rotation, double scale, Vector3 tran
         p_1 = obj.m_pTriangleList[i][1];
         p_2 = obj.m_pTriangleList[i][2];
 
-        rotation = rotation / 180 * PI;
+        double theta = rotation / 180 * PI;
 
         v1 = obj.m_pVertexList[p_0];
-        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
-        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.x = v1.x * cos(theta) - v1.y * sin(theta);
+        v2.y = v1.x * sin(theta) + v1.y * cos(theta);
         v2.z = v1.z;
         Vector3 p0 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
 
         v1 = obj.m_pVertexList[p_1];
-        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
-        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.x = v1.x * cos(theta) - v1.y * sin(theta);
+        v2.y = v1.x * sin(theta) + v1.y * cos(theta);
         v2.z = v1.z;
         Vector3 p1 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
 
         v1 = obj.m_pVertexList[p_2];
-        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
-        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.x = v1.x * cos(theta) - v1.y * sin(theta);
+        v2.y = v1.x * sin(theta) + v1.y * cos(theta);
         v2.z = v1.z;
         Vector3 p2 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
 

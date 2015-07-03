@@ -86,7 +86,7 @@ namespace SimpleOBJ
                 case '\0':			    /* vertex */
                     {
                         Vec3f vP;
-                        if(fscanf(fp, "%f %f %f", 
+                        if(fscanf(fp, "%lf %lf %lf", 
                             &vP.x, 
                             &vP.y, 
                             &vP.z)==3)
@@ -252,7 +252,7 @@ namespace SimpleOBJ
 
         fprintf(fp,"# %d vertices\n",m_nVertices);
         for(int i=0;i<m_nVertices;i++)
-            fprintf(fp,"v %f %f %f\n",  m_pVertexList[i].x,
+            fprintf(fp,"v %lf %lf %lf\n",  m_pVertexList[i].x,
                                         m_pVertexList[i].y,
                                         m_pVertexList[i].z);
 

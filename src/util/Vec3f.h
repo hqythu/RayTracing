@@ -15,7 +15,7 @@ namespace SimpleOBJ
 
         //Constructors
         Vec3f();
-        Vec3f(float x,float y, float z);
+        Vec3f(double x, double y, double z);
         Vec3f(const Vec3f& v);
         //Deconstructor
         virtual ~Vec3f();
@@ -24,7 +24,7 @@ namespace SimpleOBJ
             return Vec3f(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
         }
         void to_unit() {
-            float t = std::sqrt(x * x + y * y + z * z);
+            double t = std::sqrt(x * x + y * y + z * z);
             x /= t;
             y /= t;
             z /= t;
@@ -36,12 +36,12 @@ namespace SimpleOBJ
         //Operators
 
         //Operator []
-        __forceinline float& operator [](int index)
+        __forceinline double& operator [](int index)
         {
             assert(index>=0&&index<3);
             return _p[index];
         }
-        __forceinline const float& operator [](int index) const
+        __forceinline const double& operator [](int index) const
         {
             assert(index >= 0 && index<3);
             return _p[index];
@@ -52,39 +52,45 @@ namespace SimpleOBJ
 
         //Operators +=,-=, *=, /=
         void operator +=(const Vec3f& v);
-        void operator +=(float f);
+        void operator +=(double f);
         void operator -=(const Vec3f& v);
-        void operator -=(float f);
+        void operator -=(double f);
         void operator *=(const Vec3f& v);
-        void operator *=(float f);
+        void operator *=(double f);
         void operator /=(const Vec3f& v);
-        void operator /=(float f);
+        void operator /=(double f);
 
         //Operators +,-.*,/
         Vec3f operator +(const Vec3f&v) const;
-        Vec3f operator +(float f) const;
+        Vec3f operator +(double f) const;
         Vec3f operator -(const Vec3f&v) const;
-        Vec3f operator -(float f) const;
+        Vec3f operator -(double f) const;
         Vec3f operator *(const Vec3f&v) const;
-        Vec3f operator *(float f) const;
+        Vec3f operator *(double f) const;
         Vec3f operator /(const Vec3f&v) const;
-        Vec3f operator /(float f) const;
+        Vec3f operator /(double f) const;
 
         Vec3f operator -() const;
 
     public:
         void Normalize();
-        float L2Norm_Sqr();
+        double L2Norm_Sqr();
      
     public:
         union
         {
             struct
-            { float _p[3]; };
+            {
+                double _p[3];
+            };
             struct
-            { float x,y,z; };
+            {
+                double x, y, z;
+            };
             struct
-            { float r,g,b; };
+            {
+                double r, g, b;
+            };
         };
         enum {_len = 3};   
         
