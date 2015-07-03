@@ -17,7 +17,7 @@ Plane::~Plane()
 }
 
 
-Intersect Plane::intersects(const tracer::Ray& ray)
+Intersect Plane::intersects(const tracer::Ray& ray) const
 {
     double D = -point.dot(normal);
     double t = -(D + ray.start.dot(normal)) / (ray.direction.dot(normal));
@@ -29,7 +29,7 @@ Intersect Plane::intersects(const tracer::Ray& ray)
 }
 
 
-Color Plane::get_color(Intersect intersect)
+Color Plane::get_color(Intersect intersect) const
 {
     if (material->texture) {
         Vector3 dy = dx * intersect.normal;

@@ -78,9 +78,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\objects\arealight.cpp" />
+    <ClCompile Include="src\objects\box.cpp" />
     <ClCompile Include="src\objects\light.cpp" />
+    <ClCompile Include="src\objects\mesh_object.cpp" />
     <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\objects\pointlight.cpp" />
+    <ClCompile Include="src\objects\triangle.cpp" />
     <ClCompile Include="src\util\color.cpp" />
     <ClCompile Include="src\util\image.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -91,13 +94,18 @@
     <ClCompile Include="src\tracer\scene.cpp" />
     <ClCompile Include="src\tracer\tracer.cpp" />
     <ClCompile Include="src\util\jsoncpp.cpp" />
+    <ClCompile Include="src\util\SimpleObject.cpp" />
+    <ClCompile Include="src\util\Vec3f.cpp" />
     <ClCompile Include="src\util\vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\objects\arealight.h" />
+    <ClInclude Include="src\objects\box.h" />
     <ClInclude Include="src\objects\light.h" />
+    <ClInclude Include="src\objects\mesh_object.h" />
     <ClInclude Include="src\objects\plane.h" />
     <ClInclude Include="src\objects\pointlight.h" />
+    <ClInclude Include="src\objects\triangle.h" />
     <ClInclude Include="src\util\color.h" />
     <ClInclude Include="src\util\image.h" />
     <ClInclude Include="src\objects\object.h" />
@@ -108,6 +116,8 @@
     <ClInclude Include="src\tracer\tracer.h" />
     <ClInclude Include="src\util\json\json-forwards.h" />
     <ClInclude Include="src\util\json\json.h" />
+    <ClInclude Include="src\util\SimpleObject.h" />
+    <ClInclude Include="src\util\Vec3f.h" />
     <ClInclude Include="src\util\vector3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

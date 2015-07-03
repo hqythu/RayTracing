@@ -7,6 +7,9 @@
 #include "../objects/object.h"
 #include "../objects/sphere.h"
 #include "../objects/plane.h"
+#include "../objects/box.h"
+#include "../objects/triangle.h"
+#include "../objects/mesh_object.h"
 #include "../objects/light.h"
 #include "../objects/pointlight.h"
 #include "../objects/arealight.h"
@@ -24,6 +27,9 @@ using objects::Intersect;
 using objects::Object;
 using objects::Sphere;
 using objects::Plane;
+using objects::Box;
+using objects::Triangle;
+using objects::MeshObject;
 using objects::Light;
 using objects::PointLight;
 using objects::AreaLight;
@@ -117,6 +123,28 @@ objects::Object* Tracer::create_object(Json::Value value)
         object = new Plane(Vector3(normal[0].asDouble(), normal[1].asDouble(), normal[2].asDouble()),
             Vector3(point[0].asDouble(), point[1].asDouble(), point[2].asDouble()),
             Vector3(dx[0].asDouble(), dx[1].asDouble(), dx[2].asDouble()));
+    }
+    else if (value["type"].asString() == "Box") {
+        double x1 = value["x1"].asDouble();
+        double x2 = value["x2"].asDouble();
+        double y1 = value["y1"].asDouble();
+        double y2 = value["y2"].asDouble();
+        double z1 = value["z1"].asDouble();
+        double z2 = value["z2"].asDouble();
+        object = new Box(x1, x2, y1, y2, z1, z2);
+    }
+    else if (value["type"].asString() == "Triangle") {
+        Json::Value p0 = value["p0"];
+        Json::Value p1 = value["p1"];
+        Json::Value p2 = value["p2"];
+        object = new Triangle(Vector3(p0[0].asDouble(), p0[1].asDouble(), p0[2].asDouble()),
+            Vector3(p1[0].asDouble(), p1[1].asDouble(), p1[2].asDouble()),
+            Vector3(p2[0].asDouble(), p2[1].asDouble(), p2[2].asDouble()));
+    }
+    else if (value["type"].asString() == "Mesh") {
+        Json::Value trans = value["translation"];
+        object = new MeshObject(value["model"].asString(), 0, value["scale"].asDouble(),
+            Vector3(trans[0].asDouble(), trans[1].asDouble(), trans[2].asDouble()));
     }
     else {
 
@@ -257,7 +285,7 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     if (!intersect.intersects) {
         return Color(0, 0, 0);
     }
-    objects::Object* object = intersect.object_ptr;
+    const objects::Object* object = intersect.object_ptr;
     Color ret;
     ret += scene->get_backgroud() * object->material->diffract;
     for (const auto& light : scene->get_lights()) {

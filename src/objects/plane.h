@@ -14,8 +14,8 @@ public:
     Plane(util::Vector3 normal, util::Vector3 point, util::Vector3 dx);
     ~Plane();
 
-    Intersect intersects(const tracer::Ray& ray);
-    Color get_color(Intersect intersect);
+    Intersect intersects(const tracer::Ray& ray) const;
+    Color get_color(Intersect intersect) const;
 
 private:
     util::Vector3 normal, point, dx;

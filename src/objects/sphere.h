@@ -14,8 +14,8 @@ public:
     Sphere(const util::Vector3& center, double radius);
     ~Sphere();
 
-    Intersect intersects(const tracer::Ray& ray);
-    Color get_color(Intersect intersect);
+    Intersect intersects(const tracer::Ray& ray) const;
+    Color get_color(Intersect intersect) const;
 
 private:
     util::Vector3 center;

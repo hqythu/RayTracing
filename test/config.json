@@ -58,6 +58,22 @@
             "color": [1, 1, 1]
         },
         {
+            "type": "Box",
+            "x1": 100,
+            "x2": 300,
+            "y1": 2000,
+            "y2": 2500,
+            "z1": 0,
+            "z2": 400,
+            "diffract": 0.8,
+            "reflect": 0,
+            "refract": 0,
+            "rindex": 1.2,
+            "spec": 0,
+            "specn": 50,
+            "color": [1, 1, 1]
+        },
+        {
             "type": "Plane",
             "normal": [0, 0, 1],
             "point": [0, 0, -500],

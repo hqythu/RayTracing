@@ -22,7 +22,10 @@ public:
     double module() const;
     double module_square() const;
 
-private:
+    double get_x() const { return x; }
+    double get_y() const { return y; }
+    double get_z() const { return z; }
+
     double x, y, z;
 };
 

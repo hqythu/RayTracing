@@ -18,7 +18,7 @@ using util::Vector3;
 class Intersect
 {
 public:
-    Intersect(Object* object, bool intersects, double distance,
+    Intersect(const Object* object, bool intersects, double distance,
         const Vector3& position, const Vector3& normal)
         :
         object_ptr(object),
@@ -29,7 +29,7 @@ public:
     {
     }
 
-    Object* object_ptr;
+    const Object* object_ptr;
     bool intersects;
     double distance;
     util::Vector3 position;
@@ -56,8 +56,8 @@ public:
     Object();
     virtual ~Object();
 
-    virtual Intersect intersects(const tracer::Ray& ray) = 0;
-    virtual Color get_color(Intersect intersect) = 0;
+    virtual Intersect intersects(const tracer::Ray& ray) const = 0;
+    virtual Color get_color(Intersect intersect) const = 0;
 
     Material* material;
     const static double EPSILON;
