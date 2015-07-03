@@ -22,6 +22,7 @@ int main()
     tracer->read_config_from_file("test/config.json");
     tracer->run();
     tracer->show();
+    tracer->save("output.jpg");
 
     return 0;
 }

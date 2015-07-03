@@ -24,6 +24,7 @@ public:
     void set_image(util::Image* image);
 
     void show();
+    void save(std::string filename);
 
 private:
     util::Vector3 position;

@@ -27,6 +27,7 @@ public:
 
     void run();
     void show();
+    void save(std::string filename);
 
 private:
     util::Color raytrace(const Ray& ray, int depth, bool refreacted);

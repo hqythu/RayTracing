@@ -19,6 +19,7 @@ public:
     Color operator - (const Color& op) const;
     Color operator * (const Color& op) const;
     Color operator * (double k) const;
+    Color operator / (double k) const;
     Color& operator += (const Color& op);
 
     void confine();

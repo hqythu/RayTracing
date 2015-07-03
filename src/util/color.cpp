@@ -37,6 +37,12 @@ Color Color::operator * (double k) const
 }
 
 
+Color Color::operator/(double k) const
+{
+    return Color(this->r / k, this->g / k, this->b / k);
+}
+
+
 Color& Color::operator += (const Color& op)
 {
     this->r += op.r;

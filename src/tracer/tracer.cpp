@@ -187,11 +187,30 @@ void Tracer::run()
     int width = camera->get_width();
     int height = camera->get_height();
 
-    for (int i = 0; i < width; i++) {
+    Image *img = new Image(width * 2 + 1, height * 2 + 1);
+
+    for (int i = 0; i < width * 2 + 1; i++) {
         //cout << i + 1 << endl;
-        for (int j = 0; j < height; j++) {
-            Color color = raytrace(camera->emit(i, j), 0, false);
+        for (int j = 0; j < height * 2 + 1; j++) {
+            Color color = raytrace(camera->emit(i / 2.0, j / 2.0), 0, false);
             int x = int(255 * color.get_r());
+            img->set_color(i, j, color);
+        }
+    }
+
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            Color color;
+            color += img->get_color(2 * i, 2 * j);
+            color += img->get_color(2 * i, 2 * j + 1);
+            color += img->get_color(2 * i, 2 * j + 2);
+            color += img->get_color(2 * i + 1, 2 * j);
+            color += img->get_color(2 * i + 1, 2 * j + 1);
+            color += img->get_color(2 * i + 1, 2 * j + 2);
+            color += img->get_color(2 * i + 2, 2 * j);
+            color += img->get_color(2 * i + 2, 2 * j + 1);
+            color += img->get_color(2 * i + 2, 2 * j + 2);
+            color = color / 9;
             camera->set_color(i, j, color);
         }
     }
@@ -201,6 +220,12 @@ void Tracer::run()
 void Tracer::show()
 {
     camera->show();
+}
+
+
+void Tracer::save(std::string filename)
+{
+    camera->save(filename);
 }
 
 

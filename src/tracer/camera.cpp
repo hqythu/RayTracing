@@ -48,4 +48,9 @@ void Camera::show()
 }
 
 
+void Camera::save(std::string filename)
+{
+    image->save(filename);
+}
+
 }

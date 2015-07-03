@@ -53,7 +53,15 @@ Color Image::get_relative_color(double u, double v)
 
 void Image::save(string filename)
 {
-
+    Mat picture(height, width, CV_8UC3, Scalar(255, 255, 255));
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
+            picture.at<Vec3b>(height - j - 1, i)[2] = r[i * height + j];
+            picture.at<Vec3b>(height - j - 1, i)[1] = g[i * height + j];
+            picture.at<Vec3b>(height - j - 1, i)[0] = b[i * height + j];
+        }
+    }
+    imwrite(filename, picture);
 }
 
 
