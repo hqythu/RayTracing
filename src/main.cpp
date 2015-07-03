@@ -19,7 +19,7 @@ using namespace objects;
 int main()
 {
     Tracer* tracer = new Tracer;
-    tracer->read_config_from_file("test/test.json");
+    tracer->read_config_from_file("test/config.json");
     tracer->run();
     tracer->show();
     tracer->save("output.jpg");

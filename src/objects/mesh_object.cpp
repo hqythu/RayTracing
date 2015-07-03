@@ -6,6 +6,7 @@
 #include <vector>
 #include <limits>
 #include <algorithm>
+#include <cmath>
 
 
 namespace objects
@@ -13,6 +14,8 @@ namespace objects
 
 using std::string;
 using std::vector;
+
+const double PI = 3.141592653589793238463;
 
 
 KDTreeNode::KDTreeNode(const std::vector<Triangle>& triangles)
@@ -176,18 +179,31 @@ MeshObject::MeshObject(string model, double rotation, double scale, Vector3 tran
     vector<Triangle> triangles;
 
     for (int i = 0; i < obj.m_nTriangles; i++) {
-        SimpleOBJ::Vec3f v;
+        SimpleOBJ::Vec3f v1, v2;
         int p_0, p_1, p_2;
         p_0 = obj.m_pTriangleList[i][0];
         p_1 = obj.m_pTriangleList[i][1];
         p_2 = obj.m_pTriangleList[i][2];
 
-        v = obj.m_pVertexList[p_0];
-        Vector3 p0 = Vector3(v.x * scale, v.y * scale, v.z * scale) + translation;
-        v = obj.m_pVertexList[p_1];
-        Vector3 p1 = Vector3(v.x * scale, v.y * scale, v.z * scale) + translation;
-        v = obj.m_pVertexList[p_2];
-        Vector3 p2 = Vector3(v.x * scale, v.y * scale, v.z * scale) + translation;
+        rotation = rotation / 180 * PI;
+
+        v1 = obj.m_pVertexList[p_0];
+        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
+        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.z = v1.z;
+        Vector3 p0 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
+
+        v1 = obj.m_pVertexList[p_1];
+        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
+        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.z = v1.z;
+        Vector3 p1 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
+
+        v1 = obj.m_pVertexList[p_2];
+        v2.x = v1.x * cos(rotation) - v1.y * sin(rotation);
+        v2.y = v1.x * sin(rotation) + v1.y * cos(rotation);
+        v2.z = v1.z;
+        Vector3 p2 = Vector3(v2.x * scale, v2.y * scale, v2.z * scale) + translation;
 
         triangles.push_back(Triangle(p0, p1, p2));
     }

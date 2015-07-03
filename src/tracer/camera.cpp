@@ -38,8 +38,8 @@ vector<Ray> Camera::emit(double x, double y)
     Vector3 position = this->position;
     Vector3 focus_point = position + front * focus;
 
-    const int GRID = 4;
-    const double RANGE = 10;
+    const int GRID = 1;
+    const double RANGE = 30;
 
     Vector3 start = position - up * RANGE / 2 - right * RANGE / 2;
 

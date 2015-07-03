@@ -143,7 +143,7 @@ objects::Object* Tracer::create_object(Json::Value value)
     }
     else if (value["type"].asString() == "Mesh") {
         Json::Value trans = value["translation"];
-        object = new MeshObject(value["model"].asString(), 0, value["scale"].asDouble(),
+        object = new MeshObject(value["model"].asString(), value["rotation"].asDouble(), value["scale"].asDouble(),
             Vector3(trans[0].asDouble(), trans[1].asDouble(), trans[2].asDouble()));
     }
     else {
@@ -229,12 +229,14 @@ void Tracer::run()
     int width = camera->get_width();
     int height = camera->get_height();
 
-    Image *img = new Image(width * 2 + 1, height * 2 + 1);
+    const int GRID = 1;
 
-    for (int i = 0; i < width * 2 + 1; i++) {
-        cout << (i + 1) / 2 << "/" << width << endl;
-        for (int j = 0; j < height * 2 + 1; j++) {
-            vector<Ray>& rays = camera->emit(i / 2.0, j / 2.0);
+    Image *img = new Image(width * GRID + 1, height * GRID + 1);
+
+    for (int i = 0; i < width * GRID + 1; i++) {
+        cout << (i + 1) / GRID << "/" << width << endl;
+        for (int j = 0; j < height * GRID + 1; j++) {
+            vector<Ray>& rays = camera->emit(static_cast<double>(i) / GRID, static_cast<double>(j) / GRID);
             Color color;
             for (const auto& ray : rays) {
                 color += raytrace(ray, 0, false);
@@ -247,16 +249,12 @@ void Tracer::run()
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             Color color;
-            color += img->get_color(2 * i, 2 * j);
-            color += img->get_color(2 * i, 2 * j + 1);
-            color += img->get_color(2 * i, 2 * j + 2);
-            color += img->get_color(2 * i + 1, 2 * j);
-            color += img->get_color(2 * i + 1, 2 * j + 1);
-            color += img->get_color(2 * i + 1, 2 * j + 2);
-            color += img->get_color(2 * i + 2, 2 * j);
-            color += img->get_color(2 * i + 2, 2 * j + 1);
-            color += img->get_color(2 * i + 2, 2 * j + 2);
-            color = color / 9;
+            for (int ii = 0; ii <= GRID; ii++) {
+                for (int jj = 0; jj <= GRID; jj++) {
+                    color += img->get_color(i * GRID + ii, j * GRID + jj);
+                }
+            }
+            color = color / ((GRID + 1) * (GRID + 1));
             camera->set_color(i, j, color);
         }
     }
