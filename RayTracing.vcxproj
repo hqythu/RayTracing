@@ -82,6 +82,7 @@
     <ClCompile Include="src\objects\mesh_object.cpp" />
     <ClCompile Include="src\objects\plane.cpp" />
     <ClCompile Include="src\objects\pointlight.cpp" />
+    <ClCompile Include="src\objects\triangle.cpp" />
     <ClCompile Include="src\util\color.cpp" />
     <ClCompile Include="src\util\image.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -102,6 +103,7 @@
     <ClInclude Include="src\objects\mesh_object.h" />
     <ClInclude Include="src\objects\plane.h" />
     <ClInclude Include="src\objects\pointlight.h" />
+    <ClInclude Include="src\objects\triangle.h" />
     <ClInclude Include="src\util\color.h" />
     <ClInclude Include="src\util\image.h" />
     <ClInclude Include="src\objects\object.h" />

@@ -8,6 +8,7 @@
 #include "../objects/sphere.h"
 #include "../objects/plane.h"
 #include "../objects/box.h"
+#include "../objects/triangle.h"
 #include "../objects/light.h"
 #include "../objects/pointlight.h"
 #include "../util/json/json.h"
@@ -25,6 +26,7 @@ using objects::Object;
 using objects::Sphere;
 using objects::Plane;
 using objects::Box;
+using objects::Triangle;
 using objects::Light;
 using objects::PointLight;
 
@@ -126,6 +128,17 @@ objects::Object* Tracer::create_object(Json::Value value)
         double z1 = value["z1"].asDouble();
         double z2 = value["z2"].asDouble();
         object = new Box(x1, x2, y1, y2, z1, z2);
+    }
+    else if (value["type"].asString() == "Triangle") {
+        Json::Value p0 = value["p0"];
+        Json::Value p1 = value["p1"];
+        Json::Value p2 = value["p2"];
+        object = new Triangle(Vector3(p0[0].asDouble(), p0[1].asDouble(), p0[2].asDouble()),
+            Vector3(p1[0].asDouble(), p1[1].asDouble(), p1[2].asDouble()),
+            Vector3(p2[0].asDouble(), p2[1].asDouble(), p2[2].asDouble()));
+    }
+    else {
+
     }
     objects::Material* material = new objects::Material;
     material->diffract = value["diffract"].asDouble();
