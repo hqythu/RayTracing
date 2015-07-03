@@ -127,14 +127,13 @@
     ],
     "lights": [
         {
-            "type": "point",
-            "position": [0, 1000, 1000],
+            "type": "area",
+            "position": [0, 1000, 500],
+            "dx": 1000,
+            "dy": 1000,
+            "Dx": [1, 0, 0],
+            "normal": [0, 0, -1],
             "color": [1, 1, 1]
-        },
-        {
-            "type": "point",
-            "position": [500, 500, 1000],
-            "color": [0, 0, 0]
         }
     ]
 }

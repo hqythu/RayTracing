@@ -14,7 +14,7 @@ class PointLight : public Light
 public:
     PointLight(util::Vector3 position, util::Color color);
 
-    util::Vector3 get_light_vec(util::Vector3 position);
+    std::vector<util::Vector3> get_light_vec(util::Vector3 position) const;
 
 private:
     util::Vector3 position;
