@@ -7,6 +7,7 @@
 #include "../objects/object.h"
 #include "../objects/sphere.h"
 #include "../objects/plane.h"
+#include "../objects/box.h"
 #include "../objects/light.h"
 #include "../objects/pointlight.h"
 #include "../util/json/json.h"
@@ -23,6 +24,7 @@ using objects::Intersect;
 using objects::Object;
 using objects::Sphere;
 using objects::Plane;
+using objects::Box;
 using objects::Light;
 using objects::PointLight;
 
@@ -116,8 +118,14 @@ objects::Object* Tracer::create_object(Json::Value value)
             Vector3(point[0].asDouble(), point[1].asDouble(), point[2].asDouble()),
             Vector3(dx[0].asDouble(), dx[1].asDouble(), dx[2].asDouble()));
     }
-    else {
-
+    else if (value["type"].asString() == "Box") {
+        double x1 = value["x1"].asDouble();
+        double x2 = value["x2"].asDouble();
+        double y1 = value["y1"].asDouble();
+        double y2 = value["y2"].asDouble();
+        double z1 = value["z1"].asDouble();
+        double z2 = value["z2"].asDouble();
+        object = new Box(x1, x2, y1, y2, z1, z2);
     }
     objects::Material* material = new objects::Material;
     material->diffract = value["diffract"].asDouble();
