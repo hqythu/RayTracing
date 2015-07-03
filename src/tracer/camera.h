@@ -6,16 +6,19 @@
 #include "../util/image.h"
 #include "ray.h"
 
+#include <vector>
+
 namespace tracer
 {
 
 class Camera
 {
 public:
-    Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up, int width, int height, int focus);
+    Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up,
+        int width, int height, int ratio, int focus);
     ~Camera();
 
-    Ray emit(double x, double y);
+    std::vector<Ray> emit(double x, double y);
 
     int get_width() { return width; }
     int get_height() { return height; }
@@ -30,6 +33,7 @@ private:
     util::Vector3 position;
     util::Vector3 front, up, right;
     int width, height;
+    int ratio;
     int focus;
 
     util::Image* image;

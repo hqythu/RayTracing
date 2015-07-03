@@ -27,11 +27,11 @@ vector<Vector3> AreaLight::get_light_vec(Vector3 position) const
     Vector3 start = this->position - Dx * dx / 2 - Dy * dy / 2;
 
     vector<Vector3> res;
-    const int GRID = 4;
+    const int GRID = 1;
     for (int i = 0; i < GRID; i++) {
         for (int j = 0; j < GRID; j++) {
             double x = rand() / 32768.0, y = rand() / 32768.0;
-            Vector3 point = start + Dx * dx / GRID * x + Dy * dy / GRID * y;
+            Vector3 point = start + Dx * dx / GRID * (i + x) + Dy * dy / GRID * (j + y);
             res.push_back(point - position);
         }
     }

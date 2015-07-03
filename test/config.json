@@ -5,7 +5,8 @@
         "front": [0, 1, 0],
         "width": 800,
         "height": 600,
-        "focus": 1000
+        "ratio": 1000,
+        "focus": 3000
     },
     "backgroundcolor": [0.2, 0.2, 0.2],
     "objects": [
@@ -127,12 +128,8 @@
     ],
     "lights": [
         {
-            "type": "area",
-            "position": [0, 1000, 500],
-            "dx": 1000,
-            "dy": 1000,
-            "Dx": [1, 0, 0],
-            "normal": [0, 0, -1],
+            "type": "point",
+            "position": [0, 1000, 1000],
             "color": [1, 1, 1]
         }
     ]

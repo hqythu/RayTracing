@@ -188,7 +188,8 @@ Camera* Tracer::create_camera(Json::Value value)
         value["front"][1].asDouble(),
         value["front"][2].asDouble());
     Camera* camera = new Camera(position, front, up,
-        value["width"].asInt(), value["height"].asInt(), value["focus"].asInt());
+        value["width"].asInt(), value["height"].asInt(),
+        value["ratio"].asInt(), value["focus"].asInt());
     util::Image* image = new util::Image(value["width"].asInt(), value["height"].asInt());
     camera->set_image(image);
     return camera;
@@ -205,8 +206,12 @@ void Tracer::run()
     for (int i = 0; i < width * 2 + 1; i++) {
         cout << (i + 1) / 2 << "/" << width << endl;
         for (int j = 0; j < height * 2 + 1; j++) {
-            Color color = raytrace(camera->emit(i / 2.0, j / 2.0), 0, false);
-            int x = int(255 * color.get_r());
+            vector<Ray>& rays = camera->emit(i / 2.0, j / 2.0);
+            Color color;
+            for (const auto& ray : rays) {
+                color += raytrace(ray, 0, false);
+            }
+            color = color / rays.size();
             img->set_color(i, j, color);
         }
     }
