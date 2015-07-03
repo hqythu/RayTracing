@@ -20,7 +20,7 @@ Sphere::~Sphere()
 {
 }
 
-Intersect Sphere::intersects(const tracer::Ray& ray)
+Intersect Sphere::intersects(const tracer::Ray& ray) const
 {
     Vector3 v = this->center - ray.start;
     double DdotV = ray.direction.dot(v);
@@ -55,7 +55,7 @@ Intersect Sphere::intersects(const tracer::Ray& ray)
 }
 
 
-Color Sphere::get_color(Intersect intersect)
+Color Sphere::get_color(Intersect intersect) const
 {
     if (material->texture) {
         double a = acos(-intersect.normal.dot(Vector3(0, 0, 1)));

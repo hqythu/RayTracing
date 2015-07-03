@@ -9,6 +9,7 @@
 #include "../objects/plane.h"
 #include "../objects/box.h"
 #include "../objects/triangle.h"
+#include "../objects/mesh_object.h"
 #include "../objects/light.h"
 #include "../objects/pointlight.h"
 #include "../util/json/json.h"
@@ -27,6 +28,7 @@ using objects::Sphere;
 using objects::Plane;
 using objects::Box;
 using objects::Triangle;
+using objects::MeshObject;
 using objects::Light;
 using objects::PointLight;
 
@@ -137,6 +139,11 @@ objects::Object* Tracer::create_object(Json::Value value)
             Vector3(p1[0].asDouble(), p1[1].asDouble(), p1[2].asDouble()),
             Vector3(p2[0].asDouble(), p2[1].asDouble(), p2[2].asDouble()));
     }
+    else if (value["type"].asString() == "Mesh") {
+        Json::Value trans = value["translation"];
+        object = new MeshObject(value["model"].asString(), 0, value["scale"].asDouble(),
+            Vector3(trans[0].asDouble(), trans[1].asDouble(), trans[2].asDouble()));
+    }
     else {
 
     }
@@ -235,7 +242,7 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     if (!intersect.intersects) {
         return Color(0, 0, 0);
     }
-    objects::Object* object = intersect.object_ptr;
+    const objects::Object* object = intersect.object_ptr;
     Color ret;
     ret += scene->get_backgroud() * object->material->diffract;
     for (const auto& light : scene->get_lights()) {

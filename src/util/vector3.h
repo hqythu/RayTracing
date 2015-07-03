@@ -26,7 +26,6 @@ public:
     double get_y() const { return y; }
     double get_z() const { return z; }
 
-private:
     double x, y, z;
 };
 

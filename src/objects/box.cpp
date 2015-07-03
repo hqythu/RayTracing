@@ -20,7 +20,7 @@ Box::~Box()
 }
 
 
-Intersect Box::intersects(const Ray& ray)
+Intersect Box::intersects(const Ray& ray) const
 {
     double x, y, z;
 
@@ -92,7 +92,7 @@ Intersect Box::intersects(const Ray& ray)
 }
 
 
-Color Box::get_color(Intersect intersect)
+Color Box::get_color(Intersect intersect) const
 {
     if (material) {
         return material->color;
@@ -103,7 +103,7 @@ Color Box::get_color(Intersect intersect)
 }
 
 
-bool Box::at_surface(Vector3 pos)
+bool Box::at_surface(Vector3 pos) const
 {
     double x = pos.get_x();
     double y = pos.get_y();

@@ -16,10 +16,10 @@ Object::Object()
 
 Object::~Object()
 {
-    delete material;
+
 }
 
-Intersect Object::intersects(const tracer::Ray& ray)
+Intersect Object::intersects(const tracer::Ray& ray) const
 {
     return Intersect::noHit;
 }

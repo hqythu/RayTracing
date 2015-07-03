@@ -12,12 +12,13 @@ public:
     Box(double x1 = 0, double x2 = 0, double y1 = 0, double y2 = 0, double z1 = 0, double z2 = 0);
     ~Box();
 
-    Intersect intersects(const tracer::Ray& ray);
-    Color get_color(Intersect intersect);
+    Intersect intersects(const tracer::Ray& ray) const;
+    Color get_color(Intersect intersect) const;
 
 private:
-    bool at_surface(Vector3 pos);
+    bool at_surface(Vector3 pos) const;
 
+protected:
     double x1, x2, y1, y2, z1, z2;
 };
 

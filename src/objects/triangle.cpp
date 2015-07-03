@@ -1,5 +1,7 @@
 #include "triangle.h"
 
+#include <algorithm>
+
 #include <opencv2/core/core.hpp>
 
 namespace objects
@@ -17,7 +19,7 @@ Triangle::~Triangle()
 {
 }
 
-objects::Intersect Triangle::intersects(const tracer::Ray& ray)
+objects::Intersect Triangle::intersects(const tracer::Ray& ray) const
 {
     Vector3 E1 = p0 - p1;
     Vector3 E2 = p0 - p2;
@@ -88,7 +90,7 @@ objects::Intersect Triangle::intersects(const tracer::Ray& ray)
     }
 }
 
-Color Triangle::get_color(Intersect intersect)
+Color Triangle::get_color(Intersect intersect) const
 {
     if (material) {
         return material->color;
@@ -98,5 +100,40 @@ Color Triangle::get_color(Intersect intersect)
     }
 }
 
+
+double Triangle::max_x() const
+{
+    return std::max(p0.get_x(), std::max(p1.get_x(), p2.get_x()));
+}
+
+
+double Triangle::min_x() const
+{
+    return std::min(p0.get_x(), std::min(p1.get_x(), p2.get_x()));
+}
+
+
+double Triangle::max_y() const
+{
+    return std::max(p0.get_y(), std::max(p1.get_y(), p2.get_y()));
+}
+
+
+double Triangle::min_y() const
+{
+    return std::min(p0.get_y(), std::min(p1.get_y(), p2.get_y()));
+}
+
+
+double Triangle::max_z() const
+{
+    return std::max(p0.get_z(), std::max(p1.get_z(), p2.get_z()));
+}
+
+
+double Triangle::min_z() const
+{
+    return std::min(p0.get_z(), std::min(p1.get_z(), p2.get_z()));
+}
 
 }

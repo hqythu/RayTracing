@@ -62,12 +62,25 @@
             "color": [0, 0, 1]
         },
         {
+            "type": "Mesh",
+            "model": "dragon.obj",
+            "scale": 500,
+            "translation": [0, 2000, -300],
+            "diffract": 0,
+            "reflect": 0,
+            "refract": 1,
+            "rindex": 1.2,
+            "spec": 0.0,
+            "specn": 50,
+            "color": [1, 1, 1]
+        },
+        {
             "type": "Plane",
             "normal": [0, 0, 1],
             "point": [0, 0, -500],
             "dx": [1000, 0, 0],
             "diffract": 1,
-            "reflect": 0,
+            "reflect": 0.5,
             "refract": 0,
             "spec": 0,
             "specn": 50,
