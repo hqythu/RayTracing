@@ -46,6 +46,7 @@ public:
     Color absorb;
     double reflect, refract, diffract, spec, specn;
     double rindex;
+    double drefl;
     util::Image* texture;
 };
 

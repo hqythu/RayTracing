@@ -156,6 +156,7 @@ objects::Object* Tracer::create_object(Json::Value value)
     material->rindex = value["rindex"].asDouble();
     material->spec = value["spec"].asDouble();
     material->specn = value["specn"].asDouble();
+    material->drefl = value["drefl"].asDouble();
     Json::Value color = value["color"];
     material->color = Color(color[0].asDouble(), color[1].asDouble(), color[2].asDouble());
     Json::Value absorb = value["absorb"];
@@ -309,8 +310,28 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     }
     if (object->material->reflect > 0) {
         Ray reflection = get_reflection_light(ray, intersect);
-        ret += raytrace(reflection, depth + 1, refreacted) * object->get_color(intersect) * 
-            object->material->reflect;
+        if (object->material->drefl > 0) {
+            const int SAMPLE = 16;
+            Vector3 Dx = (reflection.direction * Vector3(1, 0, 0)).normalize();
+            Vector3 Dy = (Dx * reflection.direction).normalize();
+            Dx = Dx * object->material->drefl;
+            Dy = Dy * object->material->drefl;
+
+            Color color;
+            for (int i = 0; i < SAMPLE; i++) {
+                double x, y;
+                do {
+                    x = rand() / 32768.0;
+                    y = rand() / 32768.0;
+                } while (x * x + y * y < 1);
+                color += raytrace(Ray(reflection.start, reflection.direction + Dx * x + Dy * y), 10, refreacted);
+            }
+            ret += color / SAMPLE * object->get_color(intersect) * object->material->reflect;
+        }
+        else {
+            ret += raytrace(reflection, depth + 1, refreacted) * object->get_color(intersect) *
+                object->material->reflect;
+        }
     }
     if (object->material->refract > 0) {
         double n = object->material->rindex;
