@@ -6,9 +6,12 @@
         "width": 1920,
         "height": 1080,
         "ratio": 2000,
-        "focus": 3000
+        "focus": 3000,
+        "depth_grid": 1,
+        "depth_range": 0
     },
     "backgroundcolor": [0.2, 0.2, 0.2],
+    "anti_aliasing_grid": 2,
     "objects": [
         {
             "type": "Sphere",
@@ -38,7 +41,7 @@
             "center": [400, 3500, -250],
             "radius": 200,
             "diffract": 0,
-            "reflect": 0.8,
+            "reflect": 1,
             "refract": 0,
             "spec": 0.8,
             "specn": 50,
@@ -52,8 +55,8 @@
             "y2": 1500,
             "z1": -200,
             "z2": -50,
-            "diffract": 0.5,
-            "reflect": 0.5,
+            "diffract": 1,
+            "reflect": 0,
             "refract": 0,
             "rindex": 1.2,
             "spec": 0,
@@ -80,7 +83,7 @@
             "model": "horse.obj",
             "scale": 500,
             "rotation": -20,
-            "translation": [400, 2000, -250],
+            "translation": [400, 2000, -290],
             "diffract": 0,
             "reflect": 0,
             "refract": 1,
@@ -168,7 +171,8 @@
             "dy": 500,
             "Dx": [1, 0, 0],
             "normal": [0, 0, -1],
-            "color": [1, 1, 1]
+            "color": [1, 1, 1],
+            "soft_shadow_grid": 4
         }
     ]
 }

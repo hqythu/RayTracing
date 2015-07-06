@@ -8,7 +8,7 @@
         "ratio": 1000,
         "focus": 3000,
         "depth_grid": 4,
-        "depth_range": 10
+        "depth_range": 30
     },
     "backgroundcolor": [0.2, 0.2, 0.2],
     "anti_aliasing_grid": 1,
