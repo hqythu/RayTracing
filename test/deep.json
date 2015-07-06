@@ -1,16 +1,17 @@
 {
     "camera": {
-        "position": [800, 200, -100],
+        "position": [0, 0, 0],
         "up": [0, 0, 1],
-        "front": [-1, 2, 0.1],
+        "front": [0, 1, 0],
         "width": 800,
         "height": 600,
         "ratio": 1000,
         "focus": 3000,
-        "depth_grid": 1,
-        "depth_range": 0
+        "depth_grid": 4,
+        "depth_range": 10
     },
     "backgroundcolor": [0.2, 0.2, 0.2],
+    "anti_aliasing_grid": 1,
     "objects": [
         {
             "type": "Sphere",
@@ -25,7 +26,7 @@
         },
         {
             "type": "Sphere",
-            "center": [0, 3000, -300],
+            "center": [100, 2000, -300],
             "radius": 200,
             "diffract": 0.8,
             "reflect": 0,
@@ -40,9 +41,9 @@
             "center": [400, 3000, -250],
             "radius": 200,
             "diffract": 0,
-            "reflect": 0.6,
+            "reflect": 0.8,
             "refract": 0,
-            "spec": 0.2,
+            "spec": 0,
             "specn": 50,
             "color": [1, 1, 1]
         },
@@ -50,34 +51,17 @@
             "type": "Box",
             "x1": -300,
             "x2": -100,
-            "y1": 1200,
-            "y2": 1500,
+            "y1": 1500,
+            "y2": 1800,
             "z1": -200,
             "z2": -50,
             "diffract": 0.5,
             "reflect": 0.5,
             "refract": 0,
-            "rindex": 1.2,
+            "rindex": 1.1,
             "spec": 0,
             "specn": 50,
             "color": [0, 1, 0]
-        },
-        {
-            "type": "Box",
-            "x1": -400,
-            "x2": -200,
-            "y1": 1600,
-            "y2": 2000,
-            "z1": -500,
-            "z2": -300,
-            "diffract": 0,
-            "reflect": 0.2,
-            "refract": 0.8,
-            "rindex": 1.2,
-            "spec": 0,
-            "specn": 50,
-            "color": [1, 1, 1],
-            "absorb": [0.05, 0.05, 0.05]
         },
         {
             "type": "Plane",
@@ -85,13 +69,12 @@
             "point": [0, 0, -500],
             "dx": [1000, 0, 0],
             "diffract": 0.8,
-            "reflect": 0.4,
+            "reflect": 0,
             "refract": 0,
             "spec": 0,
             "specn": 50,
             "drefl": 0,
-            "color": [1, 0, 0],
-            "texture": "floor.bmp"
+            "color": [0.8, 0, 0]
         },
         {
             "type": "Plane",
@@ -135,7 +118,7 @@
             "refract": 0,
             "spec": 0,
             "specn": 50,
-            "color": [1, 1, 1]
+            "color": [1, 1, 0]
         },
         {
             "type": "Plane",
@@ -152,7 +135,7 @@
     "lights": [
         {
             "type": "point",
-            "position": [0, 1000, 1000],
+            "position": [0, 1000, 1400],
             "color": [1, 1, 1]
         }
     ]

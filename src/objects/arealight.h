@@ -12,7 +12,7 @@ class AreaLight : public Light
 {
 public:
     AreaLight(util::Vector3 position, util::Vector3 normal, double dx, double dy,
-        util::Vector3 Dx, util::Color color);
+        util::Vector3 Dx, util::Color color, int grid);
     ~AreaLight();
 
     std::vector<util::Vector3> get_light_vec(util::Vector3 position) const;
@@ -22,6 +22,7 @@ public:
 private:
     util::Vector3 position, Dx, normal;
     double dx, dy;
+    int grid;
 };
 
 }

@@ -10,8 +10,8 @@ using util::Vector3;
 using util::Color;
 using std::vector;
 
-AreaLight::AreaLight(Vector3 position, Vector3 normal, double dx, double dy, Vector3 Dx, Color color)
-    : Light(color), position(position), normal(normal.normalize()), dx(dx), dy(dy), Dx(Dx.normalize())
+AreaLight::AreaLight(Vector3 position, Vector3 normal, double dx, double dy, Vector3 Dx, Color color, int grid)
+    : Light(color), position(position), normal(normal.normalize()), dx(dx), dy(dy), Dx(Dx.normalize()), grid(grid)
 {
 }
 

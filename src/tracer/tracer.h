@@ -42,6 +42,8 @@ private:
 
     Camera* camera;
     Scene* scene;
+
+    int grid;
 };
 
 }

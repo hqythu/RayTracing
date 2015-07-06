@@ -68,6 +68,8 @@ void Tracer::read_config_from_file(std::string filename)
 
     camera = create_camera(root["camera"]);
     scene = create_scene(root);
+
+    grid = root["anti_aliasing_grid"].asInt();
 }
 
 
@@ -196,7 +198,7 @@ objects::Light* Tracer::create_light(Json::Value value)
             Vector3(normal[0].asDouble(), normal[1].asDouble(), normal[2].asDouble()),
             value["dx"].asDouble(), value["dy"].asDouble(),
             Vector3(Dx[0].asDouble(), Dx[1].asDouble(), Dx[2].asDouble()),
-            Color(color[0].asDouble(), color[1].asDouble(), color[2].asDouble()));
+            Color(color[0].asDouble(), color[1].asDouble(), color[2].asDouble()), value["soft_shadow_grid"].asInt());
     }
     else {
 
@@ -231,14 +233,12 @@ void Tracer::run()
     int width = camera->get_width();
     int height = camera->get_height();
 
-    const int GRID = 1;
+    Image *img = new Image(width * grid + 1, height * grid + 1);
 
-    Image *img = new Image(width * GRID + 1, height * GRID + 1);
-
-    for (int i = 0; i < width * GRID + 1; i++) {
-        cout << (i + 1) / GRID << "/" << width << endl;
-        for (int j = 0; j < height * GRID + 1; j++) {
-            vector<Ray>& rays = camera->emit(static_cast<double>(i) / GRID, static_cast<double>(j) / GRID);
+    for (int i = 0; i < width * grid + 1; i++) {
+        cout << (i + 1) / grid << "/" << width << endl;
+        for (int j = 0; j < height * grid + 1; j++) {
+            vector<Ray>& rays = camera->emit(static_cast<double>(i) / grid, static_cast<double>(j) / grid);
             Color color;
             for (const auto& ray : rays) {
                 color += raytrace(ray, 0, false);
@@ -251,12 +251,12 @@ void Tracer::run()
     for (int i = 0; i < width; i++) {
         for (int j = 0; j < height; j++) {
             Color color;
-            for (int ii = 0; ii <= GRID; ii++) {
-                for (int jj = 0; jj <= GRID; jj++) {
-                    color += img->get_color(i * GRID + ii, j * GRID + jj);
+            for (int ii = 0; ii <= grid; ii++) {
+                for (int jj = 0; jj <= grid; jj++) {
+                    color += img->get_color(i * grid + ii, j * grid + jj);
                 }
             }
-            color = color / ((GRID + 1) * (GRID + 1));
+            color = color / ((grid + 1) * (grid + 1));
             camera->set_color(i, j, color);
         }
     }
@@ -283,15 +283,16 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     using util::Vector3;
     objects::Intersect intersect = scene->find_nearest_object(ray);
     objects::Intersect intersect_l = scene->find_nearest_light(ray);
-    if ((intersect_l.intersects && intersect_l.distance < intersect.distance) || !intersect.intersects) {
+    if (intersect_l.intersects && (intersect_l.distance < intersect.distance || !intersect.intersects)) {
         return intersect_l.object_ptr->get_color();
     }
-    if (!intersect.intersects) {
+    if (!intersect.intersects && !intersect_l.intersects) {
         return Color(0, 0, 0);
     }
     const objects::Object* object = intersect.object_ptr;
     Color ret;
-    ret += scene->get_backgroud() * object->material->diffract;
+    ret += scene->get_backgroud() * object->get_color(intersect) * object->material->diffract;
+    Color tmp;
     for (const auto& light : scene->get_lights()) {
         vector<Vector3>& light_vecs= light->get_light_vec(intersect.position);
         for (const auto& vec : light_vecs) {
@@ -304,15 +305,16 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
             double dot = L.dot(intersect.normal);
             if (dot > 0) {
                 if (object->material->diffract > 0) {
-                    ret += light->get_color() * object->get_color(intersect) * dot * object->material->diffract;
+                    tmp += light->get_color() * object->get_color(intersect) * dot * object->material->diffract;
                 }
                 if (object->material->spec > 0) {
-                    ret += light->get_color() * pow(dot, object->material->specn) * object->material->spec;
+                    tmp += light->get_color() * pow(dot, object->material->specn) * object->material->spec;
                 }
             }
         }
-        ret = ret / light_vecs.size();
+        tmp = tmp / light_vecs.size();
     }
+    ret += tmp;
     if (object->material->reflect > 0) {
         Ray reflection = get_reflection_light(ray, intersect);
         if (object->material->drefl > 0) {
