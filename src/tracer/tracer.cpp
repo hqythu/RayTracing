@@ -299,7 +299,8 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
             Vector3 L = vec;
             double dist = L.module();
             L = L.normalize();
-            if ((scene->find_nearest_object(Ray(intersect.position, L))).distance < dist) {
+            Intersect inter = scene->find_nearest_object(Ray(intersect.position, L));
+            if (inter.intersects && inter.distance < dist) {
                 continue;
             }
             double dot = L.dot(intersect.normal);

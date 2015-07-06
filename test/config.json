@@ -2,7 +2,7 @@
     "camera": {
         "position": [800, 200, -100],
         "up": [0, 0, 1],
-        "front": [-1, 2, 0.1],
+        "front": [-1, 2, -0.1],
         "width": 1920,
         "height": 1080,
         "ratio": 2000,
@@ -103,7 +103,7 @@
             "refract": 0,
             "spec": 0,
             "specn": 50,
-            "drefl": 0.05,
+            "drefl": 0,
             "color": [1, 0, 0],
             "texture": "floor.bmp"
         },
