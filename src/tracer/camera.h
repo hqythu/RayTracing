@@ -15,7 +15,8 @@ class Camera
 {
 public:
     Camera(util::Vector3 position, util::Vector3 front, util::Vector3 up,
-        int width, int height, int ratio, int focus);
+        int width, int height, int ratio, int focus,
+        int depth_grid, int depth_range);
     ~Camera();
 
     std::vector<Ray> emit(double x, double y);
@@ -35,6 +36,8 @@ private:
     int width, height;
     int ratio;
     int focus;
+    int depth_grid;
+    int depth_range;
 
     util::Image* image;
 };

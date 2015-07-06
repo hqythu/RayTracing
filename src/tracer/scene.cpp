@@ -44,6 +44,23 @@ objects::Intersect Scene::find_nearest_object(Ray ray)
     return inter;
 }
 
+
+objects::Intersect Scene::find_nearest_light(Ray ray)
+{
+    double min = std::numeric_limits<double>::max();
+    using objects::Intersect;
+    Intersect inter = Intersect::noHit;
+    for (const auto& light : lights) {
+        Intersect tmp = light->intersects(ray);
+        if (tmp.intersects && tmp.distance < min) {
+            inter = tmp;
+            min = tmp.distance;
+        }
+    }
+    return inter;
+}
+
+
 const Scene::ObjectList& Scene::get_objects() const
 {
     return objects;

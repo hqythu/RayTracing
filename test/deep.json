@@ -6,7 +6,9 @@
         "width": 800,
         "height": 600,
         "ratio": 1000,
-        "focus": 3000
+        "focus": 3000,
+        "depth_grid": 1,
+        "depth_range": 0
     },
     "backgroundcolor": [0.2, 0.2, 0.2],
     "objects": [
@@ -17,7 +19,7 @@
             "diffract": 0.8,
             "reflect": 0,
             "refract": 0,
-            "spec": 0.8,
+            "spec": 0.5,
             "specn": 50,
             "color": [0, 0, 1]
         },
@@ -28,19 +30,19 @@
             "diffract": 0.8,
             "reflect": 0,
             "refract": 0,
-            "spec": 0.8,
+            "spec": 0.5,
             "specn": 50,
             "color": [1, 0, 0],
             "texture": "marble.bmp"
         },
         {
             "type": "Sphere",
-            "center": [400, 3500, -250],
+            "center": [400, 3000, -250],
             "radius": 200,
             "diffract": 0,
-            "reflect": 0.8,
+            "reflect": 0.6,
             "refract": 0,
-            "spec": 0.8,
+            "spec": 0.2,
             "specn": 50,
             "color": [1, 1, 1]
         },
@@ -59,6 +61,23 @@
             "spec": 0,
             "specn": 50,
             "color": [0, 1, 0]
+        },
+        {
+            "type": "Box",
+            "x1": -400,
+            "x2": -200,
+            "y1": 1600,
+            "y2": 2000,
+            "z1": -500,
+            "z2": -300,
+            "diffract": 0,
+            "reflect": 0.2,
+            "refract": 0.8,
+            "rindex": 1.2,
+            "spec": 0,
+            "specn": 50,
+            "color": [1, 1, 1],
+            "absorb": [0.05, 0.05, 0.05]
         },
         {
             "type": "Plane",

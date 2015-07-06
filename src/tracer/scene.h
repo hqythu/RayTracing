@@ -27,6 +27,7 @@ public:
     const LightList& get_lights() const;
 
     objects::Intersect find_nearest_object(Ray ray);
+    objects::Intersect find_nearest_light(Ray ray);
 
     util::Color get_backgroud() { return backgroud_color; }
 

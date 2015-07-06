@@ -16,6 +16,8 @@ public:
 
     std::vector<util::Vector3> get_light_vec(util::Vector3 position) const;
 
+    Intersect intersects(const tracer::Ray& ray) const;
+
 private:
     util::Vector3 position;
 };

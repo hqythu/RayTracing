@@ -21,4 +21,16 @@ vector<Vector3> PointLight::get_light_vec(util::Vector3 position) const
     return vector<Vector3>(1, this->position - position);
 }
 
+
+objects::Intersect PointLight::intersects(const tracer::Ray& ray) const
+{
+    Vector3 v = this->position - ray.start;
+    if (v.dot(ray.direction) < EPSILON) {
+        return Intersect(this, true, v.module(), this->position, Vector3(0, 0, 0));
+    }
+    else {
+        return Intersect::noHit;
+    }
+}
+
 }

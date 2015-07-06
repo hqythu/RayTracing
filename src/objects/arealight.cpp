@@ -38,4 +38,10 @@ vector<Vector3> AreaLight::get_light_vec(Vector3 position) const
     return res;
 }
 
+
+objects::Intersect AreaLight::intersects(const tracer::Ray& ray) const
+{
+    return Intersect::noHit;
+}
+
 }

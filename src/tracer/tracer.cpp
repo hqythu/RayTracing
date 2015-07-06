@@ -218,7 +218,8 @@ Camera* Tracer::create_camera(Json::Value value)
         value["front"][2].asDouble());
     Camera* camera = new Camera(position, front, up,
         value["width"].asInt(), value["height"].asInt(),
-        value["ratio"].asInt(), value["focus"].asInt());
+        value["ratio"].asInt(), value["focus"].asInt(),
+        value["depth_grid"].asInt(), value["depth_range"].asInt());
     util::Image* image = new util::Image(value["width"].asInt(), value["height"].asInt());
     camera->set_image(image);
     return camera;
@@ -281,6 +282,10 @@ Color Tracer::raytrace(const Ray& ray, int depth, bool refreacted)
     }
     using util::Vector3;
     objects::Intersect intersect = scene->find_nearest_object(ray);
+    objects::Intersect intersect_l = scene->find_nearest_light(ray);
+    if ((intersect_l.intersects && intersect_l.distance < intersect.distance) || !intersect.intersects) {
+        return intersect_l.object_ptr->get_color();
+    }
     if (!intersect.intersects) {
         return Color(0, 0, 0);
     }

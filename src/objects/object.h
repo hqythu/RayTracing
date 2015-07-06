@@ -59,6 +59,7 @@ public:
 
     virtual Intersect intersects(const tracer::Ray& ray) const = 0;
     virtual Color get_color(Intersect intersect) const = 0;
+    virtual Color get_color() const { return Color(0, 0, 0); }
 
     Material* material;
     const static double EPSILON;
